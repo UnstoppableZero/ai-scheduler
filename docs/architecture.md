@@ -1,5 +1,6 @@
 System Architecture Diagram:
 
+```mermaid
 graph TD
     User[User / Client] -->|HTTPS Requests| Client[Frontend: Next.js]
     Client -->|REST API| Server[Backend: FastAPI]
@@ -13,7 +14,6 @@ graph TD
     style Server fill:#fff3e0,stroke:#e65100
     style AI fill:#f3e5f5,stroke:#4a148c
     style DB fill:#e8f5e9,stroke:#1b5e20
-
 
 Components Descriptions:
 
@@ -34,21 +34,21 @@ Stores Groups, Stores User Schedules
 
 Data Flow Schematic:
 
-Legend:
-U -> User
-FE -> Next.js
-BE -> FastAPI
-AI -> Ollama
-DB -> PostgreSQL
-(FLOW SCHEMATIC BELOW)
-U -> FE:  (User enters “I am free Thursday Nights”)
-FE->BE: (POST /parse-schedule)
-BE->AI: (Convert “I am free Thursday Nights” to JSON)
-AI->BE:(Returns {“Thursday”: “19:00-23:59”})
-BE->DB:(Inserts and stores in Schedules table)
-DB->BE:(Success)
-BE->FE: Code 200 OK (Schedule Updated Successfully)
-FE->U:(Displays updated calendar grid)
+Diagram
+    participant U as User
+    participant FE as Next.js
+    participant BE as FastAPI
+    participant AI as Ollama
+    participant DB as PostgreSQL
+
+    U->>FE: Enters "I am free Thursday Nights"
+    FE->>BE: POST /parse-schedule
+    BE->>AI: Prompt: "Convert text to JSON"
+    AI-->>BE: Returns { "Thursday": "19:00-23:59" }
+    BE->>DB: Insert into Schedules table
+    DB-->>BE: Success
+    BE-->>FE: 200 OK (Schedule Updated)
+    FE-->>U: Shows updated calendar grid
 
 
 ADRs (Architectural Decision Records):
