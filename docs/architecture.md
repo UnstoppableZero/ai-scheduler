@@ -37,11 +37,11 @@ Stores Groups, Stores User Schedules
 Data Flow Schematic:
 
 Diagram
-    participant U as User
-    participant FE as Next.js
-    participant BE as FastAPI
-    participant AI as Ollama
-    participant DB as PostgreSQL
+    U as User
+    FE as Next.js
+    BE as FastAPI
+    AI as Ollama
+    DB as PostgreSQL
 
     U->>FE: Enters "I am free Thursday Nights"
     FE->>BE: POST /parse-schedule
