@@ -14,7 +14,7 @@ graph TD
     style Server fill:#fff3e0,stroke:#e65100
     style AI fill:#f3e5f5,stroke:#4a148c
     style DB fill:#e8f5e9,stroke:#1b5e20
-    ```
+```
     
 
 Components Descriptions:
