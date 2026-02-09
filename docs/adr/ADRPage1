@@ -1,0 +1,21 @@
+ADRs (Architectural Decision Records):
+
+ADR 001: Local LLM vs Cloud API
+
+Status: Accepted
+
+Context: We need to parse natural language into structured data. Choices are a paid API like OpenAI or a local model like Ollama.
+
+Decision: We will utilize Ollama running locally on our machines.
+
+Consequences: The LLM used for this project will require sufficient RAM and Storage to run the model.
+
+ADR 002: Backend Framework Selection
+
+Status: Accepted
+
+Context: A backend is required to handle API requests and interface with the LLM. Options include Spring Boot, FastAPI, Django, etc.
+
+Decision: FastAPI will be utilized.
+
+Consequences: The team has to understand Python type hinting and Pydantic models.
