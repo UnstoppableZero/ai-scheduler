@@ -7,13 +7,19 @@
 
 ## Week 1 (Mar 16) — Integration
 - [ ] Task 1: Backend
+      
       (Sub-tasks for Backend go here)
 - [ ] Task 2: Frontend
+
       (Sub-tasks for Frontend go here)
 - [ ] Task 3: AI/Prompts
+
       (Sub-tasks for AI/Prompts go here)
 - [ ] Task 4: Database
-      (Sub-tasks for Database go here)
+
+      - Create a docker-compose.yml file that houses instructions for creating the container
+      - Create a init.sql file which creates the equipment table, necessary attributes, and fake data entries to test with queries.
+      
       
 - Owner(s): Bedan (Task 1), Owen (Task 4), Hanan & Rufus (Task 3), Jaden (Task 2)
 
