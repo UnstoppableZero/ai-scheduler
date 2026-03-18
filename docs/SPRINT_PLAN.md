@@ -15,7 +15,7 @@
 - [ ] Task 3: AI/Prompts
 
       (Sub-tasks for AI/Prompts go here)
-- [ ] Task 4: Database
+- [x] Task 4: Database
 
       - Create a docker-compose.yml file that houses instructions for creating the container
       - Create a init.sql file which creates the equipment table, necessary attributes, and fake data entries to test with queries.
