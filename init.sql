@@ -6,6 +6,13 @@ CREATE TABLE equipment_status (
     time_out TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS uploaded_files (
+    id SERIAL PRIMARY KEY,
+    filename VARCHAR(255),
+    file_path TEXT,
+    uploaded_at TIMESTAMP DEFAULT NOW()
+);
+
 INSERT INTO equipment_status (equipment_name, signed_out_by, location)
 VALUES
 ('C-Arm X-Ray', 'Dr. Smith', 'OR-3'),
