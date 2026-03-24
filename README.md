@@ -45,7 +45,7 @@ Follow these instructions to run the project locally.
 2.  **Create and activate Virtual Environment:**
     ```bash
     # Windows
-    py -m venv venv
+    (python or py) -m venv venv
     .\venv\Scripts\Activate
 
     # Mac/Linux
