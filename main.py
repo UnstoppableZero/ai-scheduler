@@ -1,10 +1,22 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from database import get_db
+from fastapis import files
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(files.router)
 
 class ScheduleRequest(BaseModel):
     schedule_text: str
@@ -17,14 +29,12 @@ def root():
 def health_check():
     return {"status": "healthy"}
 
-# GET — read all schedules from DB
 @app.get("/schedules")
 def get_schedules(db: Session = Depends(get_db)):
     result = db.execute(text("SELECT * FROM schedules"))
     rows = result.mappings().all()
     return {"schedules": [dict(row) for row in rows]}
 
-# POST — insert a schedule into DB
 @app.post("/schedules")
 def create_schedule(request: ScheduleRequest, db: Session = Depends(get_db)):
     db.execute(text("INSERT INTO schedules (schedule_text) VALUES (:text)"), {"text": request.schedule_text})
