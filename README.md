@@ -83,7 +83,7 @@ Once the backend is running, you can access the interactive Swagger UI to test t
 **Expected JSON Response (from Ollama parsing):**
 ```json
 {
-  "equipment_name": "C-Arm",
+  "equipment_id": "C-Arm",
   "user": "Dr. Smith",
   "location": "OR-3",
   "time_out": "08:00"

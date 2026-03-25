@@ -3,7 +3,7 @@ import { Group, Schedule, ParsedScheduleInput } from './types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -28,8 +28,8 @@ export const scheduleAPI = {
   
   uploadImage: async (file: File) => {
     const formData = new FormData();
-   formData.append('file', file);
-const response = await api.post('/upload', formData, {
+    formData.append('image', file);
+    const response = await api.post('/upload-schedule', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
