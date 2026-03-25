@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from database import get_db
-from fastapis import files
 
 app = FastAPI()
 
@@ -16,7 +15,7 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthyy"}
+    return {"status": "healthy"}
 
 # GET — read all schedules from DB
 @app.get("/schedules")
