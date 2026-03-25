@@ -6,6 +6,7 @@ fastapi==0.128.1
 h11==0.16.0
 idna==3.11
 pydantic==2.12.5
+python-multipart
 pydantic_core==2.41.5
 starlette==0.50.0
 typing-inspection==0.4.2

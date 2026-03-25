@@ -1,0 +1,22 @@
+services:
+  database:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: trace_admin
+      POSTGRES_PASSWORD: supersecretpassword
+      POSTGRES_DB: scheduler_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://trace_admin:supersecretpassword@database:5432/scheduler_db
+    depends_on:
+      - database
+    volumes:
+      - ./uploads:/app/uploads
