@@ -28,8 +28,8 @@ export const scheduleAPI = {
   
   uploadImage: async (file: File) => {
     const formData = new FormData();
-    formData.append('image', file);
-    const response = await api.post('/upload-schedule', formData, {
+   formData.append('file', file);
+const response = await api.post('/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
