@@ -8,6 +8,7 @@ export default function ImageUpload() {
   const [preview, setPreview] = useState<string | null>(null);
   const [savedFiles, setSavedFiles] = useState<any[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<any | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = (file: File) => {
@@ -20,7 +21,9 @@ export default function ImageUpload() {
     setIsSaving(true);
     try {
       await scheduleAPI.uploadImage(image);
-      alert('File saved!');
+      setImage(null);
+      setPreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
       await handleViewFiles();
     } catch (err) {
       console.error('Save failed:', err);
@@ -39,8 +42,13 @@ export default function ImageUpload() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+    <div className="max-w-2xl mx-auto p-6 space-y-6">
+
+      {/* Upload Area */}
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        className="border-2 border-dashed border-blue-300 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-all"
+      >
         <input
           type="file"
           ref={fileInputRef}
@@ -48,53 +56,93 @@ export default function ImageUpload() {
           onChange={(e) => e.target.files && handleFileSelect(e.target.files[0])}
           className="hidden"
         />
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600"
-        >
-          Take Photo or Upload
-        </button>
-        <p className="mt-2 text-gray-500">Upload a photo of the sign-out sheet</p>
-
-        {preview && (
-          <img src={preview} alt="Preview" className="max-h-64 mx-auto mt-4" />
+        {preview ? (
+          <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded-lg shadow-md" />
+        ) : (
+          <div className="space-y-2">
+            <p className="text-blue-600 font-medium">Click to upload an image</p>
+            <p className="text-gray-400 text-sm">PNG, JPG, JPEG supported</p>
+          </div>
         )}
       </div>
 
+      {/* Action Buttons */}
       {image && (
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-3">
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
+            className="flex-1 bg-green-500 text-white py-2 rounded-lg font-medium hover:bg-green-600 disabled:opacity-50 transition-colors"
           >
             {isSaving ? 'Saving...' : 'Save'}
           </button>
-          <button className="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600">
+          <button className="flex-1 bg-purple-500 text-white py-2 rounded-lg font-medium hover:bg-purple-600 transition-colors">
             Extract
           </button>
         </div>
       )}
 
-      <div className="mt-8">
-        <button
-          onClick={handleViewFiles}
-          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
-        >
-          View Saved Files
-        </button>
+      {/* View Files Button */}
+      <button
+        onClick={handleViewFiles}
+        className="w-full border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+      >
+        View Saved Files
+      </button>
 
-        {savedFiles.length > 0 && (
-          <ul className="mt-4 space-y-2">
+      {/* Saved Files Grid */}
+      {savedFiles.length > 0 && (
+        <div className="space-y-3">
+          <h3 className="font-semibold text-gray-700">Saved Files</h3>
+          <div className="grid grid-cols-2 gap-3">
             {savedFiles.map((file) => (
-              <li key={file.id} className="bg-gray-100 p-3 rounded-lg">
-                <p className="font-medium">{file.filename}</p>
-                <p className="text-sm text-gray-500">{file.uploaded_at}</p>
-              </li>
+              <div
+                key={file.id}
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => setSelectedFile(file)}
+              >
+                <img
+                  src={`http://localhost:8000/uploads/${file.filename}`}
+                  alt={file.filename}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-3">
+                  <p className="font-medium text-gray-800 truncate text-sm">{file.filename}</p>
+                  <p className="text-xs text-gray-400">{new Date(file.uploaded_at).toLocaleString()}</p>
+                </div>
+              </div>
             ))}
-          </ul>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Modal */}
+      {selectedFile && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          onClick={() => setSelectedFile(null)}
+        >
+          <div className="bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={`http://localhost:8000/uploads/${selectedFile.filename}`}
+              alt={selectedFile.filename}
+              className="w-full max-h-96 object-contain"
+            />
+            <div className="p-4 flex justify-between items-center">
+              <div>
+                <p className="font-medium text-gray-800">{selectedFile.filename}</p>
+                <p className="text-sm text-gray-400">{new Date(selectedFile.uploaded_at).toLocaleString()}</p>
+              </div>
+              <button
+                onClick={() => setSelectedFile(null)}
+                className="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
