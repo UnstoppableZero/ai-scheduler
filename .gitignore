@@ -1,5 +1,22 @@
+<<<<<<< HEAD
 node_modules/
 .next/
 __pycache__/
 *.pyc
 .env
+=======
+# Node/Next.js dependencies
+node_modules/
+.next/
+
+# Python dependencies and cache
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables (Never upload passwords!)
+.env
+
+# Mac system files
+.DS_Store
+>>>>>>> f4701cf2282f4628b2fb220e33c12acdf0f05b44
