@@ -11,9 +11,9 @@ Llava Usage Instructions
 3.) Start the database (Docker):
 
 	docker compose up -d
-then swap to:
+then swap to /ai-scheduler/backend:
 
-	/ai-schedule/backend
+	cd backend
 
 ✔ Starts PostgreSQL container
 ✔ Required for backend to run
@@ -22,13 +22,23 @@ then swap to:
 
 	py -m pip install uvicorn httpx python-multipart sqlalchemy psycopg2-binary
 
+or:
+
+	python -m pip install uvicorn httpx python-multipart sqlalchemy psycopg2-binary
+
 5.) Start backend (Terminal #1)
 
 	py -m uvicorn main:app --reload
 
+or:
+
+	python -m uvicorn main:app --reload
+
 ✔ FastAPI server runs at:
 
-6.) Start Ollama (Terminal #2)
+	http://127.0.0.1:8000
+
+6.) Make a new terminal and start Ollama (Terminal #2)
 
 	ollama run llava
 
