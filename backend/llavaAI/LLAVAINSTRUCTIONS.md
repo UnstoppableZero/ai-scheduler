@@ -1,12 +1,12 @@
 Llava Usage Instructions
 ------------------------
-1.) Ensure the server is running
-
-	uvicorn main:app --reload
-
-2.) Make sure you're in:
+1.) Make sure you're in:
 
 	/ai-scheduler
+
+2.) Ensure the server is running
+
+	uvicorn main:app --reload
 
 3.) Start the database (Docker):
 
