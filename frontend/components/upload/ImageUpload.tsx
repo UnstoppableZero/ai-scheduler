@@ -118,31 +118,37 @@ export default function ImageUpload() {
       {/* Saved Files Grid */}
       {showFiles && savedFiles.length > 0 && (
         <div className="space-y-3">
-          <p className="text-xs text-gray-400">Click images to select for extraction</p>
+          <p className="text-xs text-gray-400">Check images to select for extraction</p>
           <div className="grid grid-cols-2 gap-3">
             {savedFiles.map((file) => {
               const isSelected = selectedForExtract.includes(file.id);
               return (
                 <div
                   key={file.id}
-                  className={`bg-white border-2 rounded-lg overflow-hidden shadow-sm cursor-pointer transition-all ${
-                    isSelected ? 'border-purple-500 shadow-purple-200 shadow-md' : 'border-gray-200 hover:shadow-md'
+                  className={`bg-white border-2 rounded-lg overflow-hidden shadow-sm transition-all ${
+                    isSelected ? 'border-purple-500 shadow-purple-200 shadow-md' : 'border-gray-200'
                   }`}
-                  onClick={() => toggleSelectForExtract(file.id)}
                 >
-                  {isSelected && (
-                    <div className="bg-purple-500 text-white text-xs text-center py-1 font-medium">
-                      Selected
-                    </div>
-                  )}
+                  {/* Checkbox row */}
+                  <div className="flex items-center gap-2 p-2 bg-gray-50 border-b border-gray-100">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSelectForExtract(file.id)}
+                      className="w-4 h-4 accent-purple-500 cursor-pointer"
+                    />
+                    <p className="text-xs text-gray-600 truncate">{file.filename}</p>
+                  </div>
+
+                  {/* Image */}
                   <img
                     src={`${API_URL}/uploads/${file.filename}`}
                     alt={file.filename}
-                    className="w-full h-40 object-cover"
-                    onClick={(e) => { e.stopPropagation(); setSelectedFile(file); }}
+                    className="w-full h-40 object-cover cursor-pointer"
+                    onClick={() => setSelectedFile(file)}
                   />
-                  <div className="p-3">
-                    <p className="font-medium text-gray-800 truncate text-sm">{file.filename}</p>
+
+                  <div className="p-2">
                     <p className="text-xs text-gray-400">{new Date(file.uploaded_at).toLocaleString()}</p>
                   </div>
                 </div>
