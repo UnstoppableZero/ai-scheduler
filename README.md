@@ -16,7 +16,7 @@ For detailed engineering documents, please see the `/docs` folder:
 
 ## 👥 Individual Contribution
 
-* **[Owen Matimu]** - Database Engineer & Repository Manager
+* **Owen Matimu** - Database Engineer & Repository Manager
 
 ---
 
