@@ -12,6 +12,11 @@ For detailed engineering documents, please see the `/docs` folder:
 * [Project Proposal](docs/proposal.md)
 * [Requirements Specification](docs/requirements.md)
 * [System Architecture](docs/architecture.md)
+---
+
+## 👥 Individual Contribution
+
+* **[Owen Matimu]** - Database Engineer & Repository Manager
 
 ---
 
